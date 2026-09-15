@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표 만들기</title>
+</head>
+<body>
+    <h1>테이블</h1>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>제목1</th>
+                <th>제목2</th>
+                <th>제목3</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td rowspan="2">내용11</td>
+                <td>내용12</td>
+                <td>내용13</td>
+            </tr>
+            <tr>
+                <!--<td>내용21</td>-->
+                <td>내용22 내용22</td>
+                <td>내용23</td>
+            </tr>
+            <tr>
+                <td colspan="3">내용31</td>
+                <!--<td>내용32</td>-->
+                <!--<td>내용33</td>-->
+            </tr>
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>꼬리1</td>
+                <td>꼬리2</td>
+                <td>꼬리3</td>
+            </tr>
+        </tfoot>
+    </table>
+</html>
