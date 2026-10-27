@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    let number = prompt('정수를 입력하세요. 9-A,8-B,7-C,6-D');
+   /* if (number%2==0){
+        alert('짝수입니다.');
+    }
+    else {
+        alert('홀수입니다.')
+    }*/
+   /*if( number>= 90) {
+    alert('A 입니다.');
+   }
+   else if(number >= 80) {
+        alert('B 입니다.')
+   }
+   else if(number >= 70) {
+        alert('C 입니다.')
+   }
+   else if(number >= 60) {
+        alert('D 입니다.')
+   }
+   else{
+        alert('F 입니다.')
+   }*/
+  switch(parseInt (number/10)) {
+    case "10":
+    case "9":
+        alert("A 입니다.")
+        break;
+    case "8":
+        alert("B 입니다.")
+        break;
+    case "7":
+        alert("C 입니다.")
+        break;
+    case "6":
+        alert("D 입니다.")
+        break;
+    default:
+        alert('F 입니다.')
+        break;
+  }
+</script>
+<body>
+    <h1>JS 조건문</h1>
+</body>
+</html>
