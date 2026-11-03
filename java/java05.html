@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script src="https://code.jquery.com/jquery-3.7.1.min.js"
+  integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+  crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function (){
+        $('button').click(function (){
+            $('h1').css('color','red');
+            $('p').css('background-color','yellow');
+            $('img').attr('src','http://placehold.co/200x200');
+            $('#t1').text('<a href="https://www.syu.ac.kr/">text()</a>');
+            $('#t2').html('<a href="https://www.syu.ac.kr/">html()</a>');
+            $('#t1').toggleClass('c1');
+        });
+    });
+</script>
+<style>
+    .c1 {color: blue;}
+</style>
+<body>
+    <h1>jQuery 예제</h1>
+    <p>삼육대학교</p>
+    <p id="t1">인공지능융합학부</p>
+    <p id="t2">웹프로그래밍</p>
+    <img><br>
+    <img src="http://placehold.co/100x100"><br>
+    <button>클릭하세요.</button>
+</body>
+</html>
