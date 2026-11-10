@@ -1,0 +1,15 @@
+{
+  "name": "exam01",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "김재호",
+  "type": "commonjs",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "ansi-colors": "^4.1.3"
+  }
+}
