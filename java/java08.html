@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>계산기</title>
+
+    <style>
+        h1 {
+            text-align: center;
+        }
+
+        #calc {
+            width: 220px;
+            margin: 0 auto;
+        }
+
+        .disp {
+            width: 205px;
+            height: 40px;
+            margin-top: 3px;
+            text-align: right;
+        }
+
+        input[type="button"] {
+            width: 50px;
+            height: 50px;
+            margin-top: 5px;
+            text-align: center;
+            vertical-align: middle;
+        }
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script>
+        function calculate(expression) {
+            const number = "\\d+(?:\\.\\d+)?(?:e[+-]?\\d+)?";
+            const validExpression = new RegExp(
+                "^[+-]?" + number + "(?:[+*/-]" + number + ")*$"
+            );
+
+            if (!validExpression.test(expression)) {
+                throw new Error("수식 오류");
+            }
+
+            // 수식을 숫자와 연산자로 나눈다.
+            // 예: 2+3*4 → ["2", "+", "3", "*", "4"]
+            const tokens = expression.match(
+                new RegExp("^[+-]?" + number + "|" + number + "|[+*/-]", "g")
+            );
+
+            let total = 0;
+            let term = Number(tokens[0]);
+
+            for (let i = 1; i < tokens.length; i += 2) {
+                const operator = tokens[i];
+                const nextNumber = Number(tokens[i + 1]);
+
+                if (operator === "*") {
+                    term *= nextNumber;
+                } else if (operator === "/") {
+                    if (nextNumber === 0) {
+                        throw new Error("0으로 나눌 수 없음");
+                    }
+                    term /= nextNumber;
+                } else {
+                    // + 또는 -를 만나면 지금까지 계산한 항을 합계에 넣는다.
+                    total += term;
+                    term = operator === "+" ? nextNumber : -nextNumber;
+                }
+            }
+
+            const result = total + term;
+
+            if (!Number.isFinite(result)) {
+                throw new Error("계산 범위 초과");
+            }
+
+            return result;
+        }
+
+        $(document).ready(function () {
+            let calculationFinished = false;
+
+            $(".num").click(function () {
+                if (calculationFinished) {
+                    $("#disp1, #disp2").val("");
+                    calculationFinished = false;
+                }
+
+                const current = $("#disp2").val();
+                $("#disp2").val(current + $(this).val());
+            });
+
+            $(".op").click(function () {
+                const current = $("#disp2").val();
+                const operator = $(this).val();
+
+                if (operator !== "=") {
+                    if (current === "" && operator !== "-") {
+                        return;
+                    }
+
+                    if (calculationFinished && !Number.isFinite(Number(current))) {
+                        return;
+                    }
+
+                    $("#disp2").val(current + operator);
+                    calculationFinished = false;
+                    return;
+                }
+
+                if (current === "" || calculationFinished) {
+                    return;
+                }
+
+                $("#disp1").val(current);
+
+                try {
+                    $("#disp2").val(calculate(current));
+                } catch (error) {
+                    $("#disp2").val(error.message);
+                }
+
+                calculationFinished = true;
+            });
+
+            $(".func").click(function () {
+                $("#disp1, #disp2").val("");
+                calculationFinished = false;
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <h1>계산기</h1>
+
+    <form id="calc">
+        <div>
+            <input type="text" class="disp" id="disp1" aria-label="수식" readonly>
+            <input type="text" class="disp" id="disp2" aria-label="입력 및 결과" readonly>
+        </div>
+
+        <input type="button" class="num" value="7">
+        <input type="button" class="num" value="8">
+        <input type="button" class="num" value="9">
+        <input type="button" class="op" value="+"><br>
+
+        <input type="button" class="num" value="4">
+        <input type="button" class="num" value="5">
+        <input type="button" class="num" value="6">
+        <input type="button" class="op" value="-"><br>
+
+        <input type="button" class="num" value="1">
+        <input type="button" class="num" value="2">
+        <input type="button" class="num" value="3">
+        <input type="button" class="op" value="*"><br>
+
+        <input type="button" class="func" value="AC">
+        <input type="button" class="num" value="0">
+        <input type="button" class="op" value="=">
+        <input type="button" class="op" value="/">
+    </form>
+</body>
+</html>
